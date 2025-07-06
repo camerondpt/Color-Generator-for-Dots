@@ -1,0 +1,142 @@
+/* General body styling: sets font, centers content, and makes body fill the viewport */
+body {
+    font-family: Arial, sans-serif;
+    display: flex; /* Use flexbox to arrange children (heading, controls, colorBlock) */
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Horizontally center children */
+    margin: 0; /* Remove default browser margin around the body */
+    min-height: 100vh; /* Ensure the body takes at least the full height of the viewport */
+    justify-content: flex-start; /* Align content to the top of the viewport */
+    background-color: #f0f0f0; /* Light gray background for the page */
+    overflow: hidden; /* Prevent scrollbars if content slightly overflows, especially for the large color block */
+}
+
+/* Styling for the main heading */
+h1 {
+    color: #333; /* Dark gray text color */
+    margin-top: 20px; /* Space above the heading */
+    margin-bottom: 15px; /* Space below the heading */
+    font-size: 2em; /* Makes the heading a bit larger than default */
+}
+
+/* Styling for the controls container (where inputs and buttons are) */
+#controls {
+    display: flex; /* Use flexbox to arrange items inside the controls container */
+    /* CHANGE: Change flex-direction to row and allow wrapping */
+    flex-direction: row; /* Arrange items in a row */
+    flex-wrap: wrap; /* Allow items to wrap to the next line if space is limited */
+    justify-content: center; /* Center items horizontally within controls */
+    align-items: center; /* Vertically align items in the center of the flex line */
+    gap: 15px 25px; /* NEW: Vertical gap is 15px, Horizontal gap is 25px */
+    margin-bottom: 15px;
+    padding: 15px 25px; /* Add more horizontal padding */
+    border: 1px solid #eee;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 10;
+    max-width: 95vw; /* Limit the width of the controls so it doesn't get too wide on large screens */
+}
+
+/* Also ensure your other elements like #colorSelectionButtons have appropriate flex properties */
+#colorSelectionButtons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    /* Removed margin-top and margin-bottom here, as gap on parent #controls will handle spacing */
+    /* If you prefer to keep margin-top/bottom for specific spacing, feel free to put them back */
+    /* margin-top: 10px; */
+    /* margin-bottom: 10px; */
+}
+
+#controls > label { /* Target labels directly within controls, which precede inputs */
+    display: inline-block; /* Allow label and input to sit next to each other */
+    white-space: nowrap; /* Prevent label text from wrapping */
+    margin-bottom: 0; /* Remove potential bottom margin from previous column layout */
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column; /* Stack label and input within their own group */
+    align-items: center;
+    /* Add this class to your HTML if you want to group them */
+}
+
+/* Default styling for all color selection buttons */
+.color-button {
+    padding: 10px 20px; /* Padding inside the button */
+    border: 2px solid #ccc; /* Default border */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #f0f0f0; /* Light gray background */
+    color: #333; /* Dark text color */
+    font-size: 1em; /* Standard font size */
+    cursor: pointer; /* Indicates the element is clickable */
+    /* Smooth transitions for background, border, and transform properties */
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+    min-width: 80px; /* Ensures buttons have a consistent minimum width */
+    text-align: center; /* Centers the text within the button */
+}
+
+/* Hover effect for color selection buttons */
+.color-button:hover {
+    background-color: #e0e0e0; /* Slightly darker background on hover */
+    border-color: #999; /* Darker border on hover */
+    transform: translateY(-1px); /* A subtle lift effect on hover */
+}
+
+/* Styling for a color button when it has the 'selected' class (added by JavaScript) */
+.color-button.selected {
+    background-color: #007bff; /* A distinct primary blue background when selected */
+    color: white; /* White text for contrast */
+    border-color: #007bff; /* Matching border color for the selected state */
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5); /* A subtle glow effect */
+    transform: translateY(0); /* Resets any hover lift if it was hovered when selected */
+}
+
+/* Optional: Specific background colors for the selected state, matching the color name */
+/* These override the general .color-button.selected background if the data-color matches */
+.color-button[data-color="red"].selected { background-color: red; border-color: red; }
+.color-button[data-color="green"].selected { background-color: green; border-color: green; }
+.color-button[data-color="blue"].selected { background-color: blue; border-color: blue; }
+.color-button[data-color="#9932CC"].selected { background-color: #9932CC; border-color: #9932CC; }
+
+/* Styling for the main color display block */
+#colorBlock {
+    width: 98vw; /* 98% of the viewport's width */
+    height: 85vh; /* 85% of the viewport's height, making it very large */
+    border: none; /* No border for a clean, full-color look */
+    margin-top: 0; /* No top margin as body flexbox handles overall spacing */
+    transition: background-color 0.2s ease-in-out; /* Smooth transition when background color changes */
+    flex-grow: 1; /* Allows the block to grow and fill available vertical space */
+    display: flex; /* Use flexbox to potentially center any content (like text) later if needed */
+    justify-content: center; /* Horizontally center content within the block */
+    align-items: center; /* Vertically center content within the block */
+    background-color: #fff; /* Default white background before animation starts */
+}
+
+/* Styling for number input fields (display time, delay time, repetitions) */
+input[type="number"] {
+    padding: 8px; /* Padding inside the input field */
+    border-radius: 4px; /* Slightly rounded corners */
+    border: 1px solid #ddd; /* Light gray border */
+    width: 120px; /* Consistent width for number inputs */
+}
+
+/* Styling for the "Start Animation" button (using its ID for specific targeting) */
+button#startButton {
+    padding: 10px 20px; /* Padding inside the button */
+    background-color: #007bff; /* Primary blue background */
+    color: white; /* White text */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Indicates it's clickable */
+    font-size: 16px; /* Standard font size */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+    margin-top: 10px; /* Space above the button if needed */
+}
+
+/* Hover effect for the "Start Animation" button */
+button#startButton:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
